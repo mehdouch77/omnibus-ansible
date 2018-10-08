@@ -77,10 +77,7 @@ if [ ! "$(which ansible-playbook)" ]; then
   elif [ -f /etc/debian_version ] || grep -qi ubuntu /etc/lsb-release || grep -qi ubuntu /etc/os-release; then
     wait_for_cloud_init
     dpkg_check_lock && apt-get update -q
-
-    # Install Ansible-galaxy
-    #apt_install ansible-galaxy
-  
+ 
     # Install required Python libs and pip
     apt_install python-pip python-yaml python-jinja2 python-httplib2 python-netaddr python-paramiko python-pkg-resources libffi-dev
     [ -n "$( dpkg_check_lock && apt-cache search python-keyczar )" ] && apt_install python-keyczar
