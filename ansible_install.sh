@@ -78,6 +78,9 @@ if [ ! "$(which ansible-playbook)" ]; then
     wait_for_cloud_init
     dpkg_check_lock && apt-get update -q
 
+    # Install Ansible-galaxy
+    #apt_install ansible-galaxy
+  
     # Install required Python libs and pip
     apt_install python-pip python-yaml python-jinja2 python-httplib2 python-netaddr python-paramiko python-pkg-resources libffi-dev
     [ -n "$( dpkg_check_lock && apt-cache search python-keyczar )" ] && apt_install python-keyczar
@@ -85,7 +88,7 @@ if [ ! "$(which ansible-playbook)" ]; then
 
     # If python-pip install failed and setuptools exists, try that
     if [ -z "$(which pip)" ] && [ -z "$(which easy_install)" ]; then
-      apt_install python-setuptools
+      apt_install python-setuptools ansible-galaxy
       easy_install pip
     elif [ -z "$(which pip)" ] && [ -n "$(which easy_install)" ]; then
       easy_install pip
